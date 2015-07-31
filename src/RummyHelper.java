@@ -7,6 +7,7 @@ import java.util.*;
 public class RummyHelper {
 
     public HashSet<int[]> allVaidCombinations = new HashSet<>();
+    private final static int CARDS_IN_HAND = 13;
     RummyHelper() {
         allVaidCombinations  = generateValidCombinations();
     }
@@ -23,6 +24,22 @@ public class RummyHelper {
                 }
             }
             return true;
+        }
+
+        public static boolean isTenaliPresent(int[] hand){
+            int consecutives = 1;
+            for (int idx = 1; idx < CARDS_IN_HAND; idx++){
+                if (hand[idx] == hand[idx - 1]){
+                    consecutives += 1;
+                }
+                else{
+                    consecutives = 1;
+                }
+                if (consecutives > 2){
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static ArrayList<int[]> generateTriplets() {
@@ -116,7 +133,7 @@ public class RummyHelper {
         return true;
         }
 
-        public int compareWithHand(int[] combination, int[] cardsInHand) {
+        public static int compareWithHand(int[] combination, int[] cardsInHand) {
 
             int diff = 0;
             int combinationIndex = 0;
