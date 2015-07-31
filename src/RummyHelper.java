@@ -115,7 +115,35 @@ public class RummyHelper {
         return true;
         }
 
+        public int compareWithHand(int[] combination, int[] cardsInHand) {
 
+            int diff = 0;
+            int combinationIndex = 0;
+            int cardsInHandIndex = 0;
+
+            while (combinationIndex < combination.length && cardsInHandIndex < cardsInHand.length) {
+                if (cardsInHand[cardsInHandIndex] < combination[combinationIndex]) {
+                    cardsInHandIndex++;
+                }
+                else
+                if (cardsInHand[cardsInHandIndex] == combination[combinationIndex]) {
+                    cardsInHandIndex++;
+                    combinationIndex++;
+                }
+                else
+                if (combination[combinationIndex] < cardsInHand[cardsInHandIndex]) {
+                    cardsInHandIndex++;
+                    diff++;
+                }
+            }
+
+            while(combinationIndex < cardsInHandIndex)
+            {
+                combinationIndex++;
+                diff++;
+            }
+            return diff;
+        }
 
         public static ArrayList<int[]> generateSequencesOfLength3() {
             ArrayList<int[]> seqLen3List = new ArrayList<int[]>();
