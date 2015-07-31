@@ -303,6 +303,24 @@ public class RummyHelper {
         return allValidCombinations;
     }
 
+    public int getCardCountToMakeNaturalSeq (int[] cards) {
+        int requiredCardCount = 2;
+        int minReqCount = requiredCardCount;
+        for (int i=0; i < cards.length; i++) {
+            if (cards[i+1] > cards[i]) {
+                requiredCardCount --;
+                if (requiredCardCount == 0)
+                    return requiredCardCount;
+            } else {
+                if (requiredCardCount < 2) {
+                    requiredCardCount ++;
+                }
+            }
+            minReqCount = requiredCardCount < minReqCount ? requiredCardCount: minReqCount;
+        }
+        return minReqCount;
+    }
+
     public int getMinimumReplacementsForWin(int[] handCards) {
         int minRepCount = 0, jokerCount =0;
         Arrays.sort(handCards);
@@ -325,7 +343,7 @@ public class RummyHelper {
         int finalMinRepCount = minRepCount;
         if (jokerCount != 0) {
             if ( ! isNaturalSeqPresent(hCards)) {
-                int seqCardCount = getCardCountToMakeNaturalSeq();
+                int seqCardCount = getCardCountToMakeNaturalSeq(hCards);
                 if (minRepCount > seqCardCount) {
                     jokerCount = jokerCount > seqCardCount ? jokerCount - seqCardCount : 0;
                 }
