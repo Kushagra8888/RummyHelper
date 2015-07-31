@@ -8,7 +8,10 @@ import java.util.HashMap;
 public class RummyClient {
 
     public static void main(String[] args) {
-
+        RummyHelper rummyHelper = new RummyHelper();
+        int[] cardsInHand = randomCardsGenerator();
+        int minReplacements = rummyHelper.getMinimumReplacementsForWin(cardsInHand);
+        System.out.print("Minimum Replacements Required = "+minReplacements);
     }
 
     static int[] randomCardsGenerator() {
