@@ -1,3 +1,6 @@
+
+import org.apache.commons.lang.ArrayUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -6,6 +9,7 @@ import java.util.List;
  * Created by test on 7/30/2015.
  */
 public class RummyHelper {
+    ArrayList<int[]> allVlaidComnbinations = new ArrayList<>();
 
         public static boolean isSeqPresent (int[] cards) {
             Arrays.sort(cards);
@@ -70,4 +74,128 @@ public class RummyHelper {
         tripletsList.add(i);
         return tripletsList;
     }
+
+
+
+    public boolean isNaturalSequence(int[] combination){
+        return true;
+    }
+
+    public int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3){
+        int[] aThirteenCombination = new int[13];
+        int thirteenIdx = 0;
+        for (int idx = 0; idx < combination1.length; idx++){
+            aThirteenCombination[thirteenIdx] = combination1[idx];
+            thirteenIdx += 1;
+        }
+        for (int idx = 0; idx < combination2.length; idx++){
+            aThirteenCombination[thirteenIdx] = combination2[idx];
+            thirteenIdx += 1;
+        }
+        for (int idx = 0; idx < combination3.length; idx++){
+            aThirteenCombination[thirteenIdx] = combination3[idx];
+            thirteenIdx += 1;
+        }
+        return aThirteenCombination;
+    }
+
+    public int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3, int[] combination4){
+        int[] aThirteenCombination = new int[13];
+        int thirteenIdx = 0;
+        for (int idx = 0; idx < combination1.length; idx++){
+            aThirteenCombination[thirteenIdx] = combination1[idx];
+            thirteenIdx += 1;
+        }
+        for (int idx = 0; idx < combination2.length; idx++){
+            aThirteenCombination[thirteenIdx] = combination2[idx];
+            thirteenIdx += 1;
+        }
+        for (int idx = 0; idx < combination3.length; idx++){
+            aThirteenCombination[thirteenIdx] = combination3[idx];
+            thirteenIdx += 1;
+        }
+        for (int idx = 0; idx < combination4.length; idx++){
+            aThirteenCombination[thirteenIdx] = combination4[idx];
+            thirteenIdx += 1;
+        }
+        return aThirteenCombination;
+    }
+
+    public ArrayList<int[]> generateValidCombinations(){
+        ArrayList<int[]> allValidCombinations = new ArrayList<>();
+        ArrayList<int[]> triplets = generateTriplets();
+        ArrayList<int[]> quards = generateQuards();
+        ArrayList<int[]> tenalis = generateTenalis();
+        ArrayList<int[]> sequencesOfLengthThree = generateSequencesOfLength3();
+        ArrayList<int[]> sequencesOfLengthFour = generateSequencesOfLength4();
+        ArrayList<int[]> sequencesOfLengthFive = generateSequencesOfLength5();
+        ArrayList<int[]> groupsOfThree = new ArrayList<>();
+        ArrayList<int[]> groupsOfFour = new ArrayList<>();
+        ArrayList<int[]> groupsOfFive = new ArrayList<>();
+        groupsOfThree.addAll(triplets);
+        groupsOfThree.addAll(sequencesOfLengthThree);
+        groupsOfThree.addAll(tenalis);
+        groupsOfFour.addAll(quards);
+        groupsOfFour.addAll(sequencesOfLengthFour);
+        groupsOfFive = sequencesOfLengthFive;
+
+        //Combinations of type {5,5,3}
+        for (int fiveGroupIdx1 = 0; fiveGroupIdx1 < groupsOfFive.size(); fiveGroupIdx1++) {
+            for(int fiveGroupIdx2 = fiveGroupIdx1 + 1; fiveGroupIdx2 < groupsOfFive.size(); fiveGroupIdx2++){
+                for (int threeGroupIdx = 0; threeGroupIdx < groupsOfThree.size(); threeGroupIdx++){
+                    int sequnces = 0;
+                    if (isNaturalSequence(groupsOfFive.get(fiveGroupIdx1))) sequnces += 1;
+                    if (isNaturalSequence(groupsOfFive.get(fiveGroupIdx2))) sequnces += 1;
+                    if (isNaturalSequence(groupsOfThree.get(threeGroupIdx))) sequnces += 1;
+                    if (sequnces >1){
+                        int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx1), groupsOfFive.get(fiveGroupIdx2), groupsOfThree.get(threeGroupIdx));
+                        if (isCardsCountValid(aThirteenGroup)){
+                            allValidCombinations.add(aThirteenGroup);
+                        }
+                    }
+                }
+            }
+        }
+
+        //Combinations of type {5,4,3}
+        for (int fiveGroupIdx = 0; fiveGroupIdx < groupsOfFive.size(); fiveGroupIdx++) {
+            for(int fourGroupIdx = 0; fourGroupIdx < groupsOfFour.size(); fourGroupIdx++){
+                for (int threeGroupIdx = 0; threeGroupIdx < groupsOfThree.size(); threeGroupIdx++){
+                    int sequnces = 0;
+                    if (isNaturalSequence(groupsOfFive.get(fiveGroupIdx))) sequnces += 1;
+                    if (isNaturalSequence(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
+                    if (isNaturalSequence(groupsOfThree.get(threeGroupIdx))) sequnces += 1;
+                    if (sequnces >1){
+                        int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx), groupsOfFour.get(fourGroupIdx), groupsOfThree.get(threeGroupIdx));
+                        if (isCardsCountValid(aThirteenGroup)){
+                            allValidCombinations.add(aThirteenGroup);
+                        }
+                    }
+                }
+            }
+        }
+
+        //Combinations of type {4,3,3,3}
+        for (int threeGroupIdx1 = 0; threeGroupIdx1 < groupsOfThree.size(); threeGroupIdx1++) {
+            for(int threeGroupIdx2 = threeGroupIdx1 + 1; threeGroupIdx2 < groupsOfThree.size(); threeGroupIdx2++){
+                for (int threeGroupIdx3 = threeGroupIdx2 + 1; threeGroupIdx3 < groupsOfThree.size(); threeGroupIdx3++){
+                    for(int fourGroupIdx = 0; fourGroupIdx < groupsOfFour.size(); fourGroupIdx++){
+                        int sequnces = 0;
+                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx1))) sequnces += 1;
+                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx2))) sequnces += 1;
+                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx3))) sequnces += 1;
+                        if (isNaturalSequence(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
+                        if (sequnces >1){
+                            int[] aThirteenGroup = mergeCombinations(groupsOfThree.get(threeGroupIdx1), groupsOfThree.get(threeGroupIdx2), groupsOfThree.get(threeGroupIdx3), groupsOfFour.get(fourGroupIdx));
+                            if (isCardsCountValid(aThirteenGroup)){
+                                allValidCombinations.add(aThirteenGroup);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return allValidCombinations;
+    }
+
 }
