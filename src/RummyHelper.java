@@ -245,7 +245,7 @@ public class RummyHelper {
 
         //Combinations of type {5,5,3}
         for (int fiveGroupIdx1 = 0; fiveGroupIdx1 < groupsOfFive.size(); fiveGroupIdx1++) {
-            for(int fiveGroupIdx2 = fiveGroupIdx1 + 1; fiveGroupIdx2 < groupsOfFive.size(); fiveGroupIdx2++){
+            for(int fiveGroupIdx2 = fiveGroupIdx1; fiveGroupIdx2 < groupsOfFive.size(); fiveGroupIdx2++){
                 for (int threeGroupIdx = 0; threeGroupIdx < groupsOfThree.size(); threeGroupIdx++){
                     int sequnces = 0;
                     if (isNaturalSeqPresent(groupsOfFive.get(fiveGroupIdx1))) sequnces += 1;
@@ -265,7 +265,7 @@ public class RummyHelper {
         //Combinations of type {5,4,3}
         for (int fiveGroupIdx = 0; fiveGroupIdx < groupsOfFive.size(); fiveGroupIdx++) {
             for(int fourGroupIdx1 = 0; fourGroupIdx1 < groupsOfFour.size(); fourGroupIdx1++){
-                for (int fourGroupIdx2 = fourGroupIdx1 + 1; fourGroupIdx2 < groupsOfThree.size(); fourGroupIdx2++){
+                for (int fourGroupIdx2 = fourGroupIdx1; fourGroupIdx2 < groupsOfThree.size(); fourGroupIdx2++){
                     int sequnces = 0;
                     if (isNaturalSeqPresent(groupsOfFive.get(fiveGroupIdx))) sequnces += 1;
                     if (isNaturalSeqPresent(groupsOfFour.get(fourGroupIdx1))) sequnces += 1;
@@ -283,8 +283,8 @@ public class RummyHelper {
 
         //Combinations of type {4,3,3,3}
         for (int threeGroupIdx1 = 0; threeGroupIdx1 < groupsOfThree.size(); threeGroupIdx1++) {
-            for(int threeGroupIdx2 = threeGroupIdx1 + 1; threeGroupIdx2 < groupsOfThree.size(); threeGroupIdx2++){
-                for (int threeGroupIdx3 = threeGroupIdx2 + 1; threeGroupIdx3 < groupsOfThree.size(); threeGroupIdx3++){
+            for(int threeGroupIdx2 = threeGroupIdx1; threeGroupIdx2 < groupsOfThree.size(); threeGroupIdx2++){
+                for (int threeGroupIdx3 = threeGroupIdx2; threeGroupIdx3 < groupsOfThree.size(); threeGroupIdx3++){
                     for(int fourGroupIdx = 0; fourGroupIdx < groupsOfFour.size(); fourGroupIdx++){
                         int sequnces = 0;
                         if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx1))) sequnces += 1;
