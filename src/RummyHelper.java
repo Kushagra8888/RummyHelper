@@ -225,6 +225,7 @@ public class RummyHelper {
                     if (sequnces >1){
                         int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx1), groupsOfFive.get(fiveGroupIdx2), groupsOfThree.get(threeGroupIdx));
                         if (isCardsCountValid(aThirteenGroup)){
+                            Arrays.sort(aThirteenGroup);
                             allValidCombinations.add(aThirteenGroup);
                         }
                     }
@@ -243,6 +244,7 @@ public class RummyHelper {
                     if (sequnces >1){
                         int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx), groupsOfFour.get(fourGroupIdx), groupsOfThree.get(threeGroupIdx));
                         if (isCardsCountValid(aThirteenGroup)){
+                            Arrays.sort(aThirteenGroup);
                             allValidCombinations.add(aThirteenGroup);
                         }
                     }
@@ -263,6 +265,7 @@ public class RummyHelper {
                         if (sequnces >1){
                             int[] aThirteenGroup = mergeCombinations(groupsOfThree.get(threeGroupIdx1), groupsOfThree.get(threeGroupIdx2), groupsOfThree.get(threeGroupIdx3), groupsOfFour.get(fourGroupIdx));
                             if (isCardsCountValid(aThirteenGroup)){
+                                Arrays.sort(aThirteenGroup);
                                 allValidCombinations.add(aThirteenGroup);
                             }
                         }
