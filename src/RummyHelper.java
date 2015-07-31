@@ -1,6 +1,4 @@
 
-import org.apache.commons.lang.ArrayUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,11 +7,14 @@ import java.util.List;
  * Created by test on 7/30/2015.
  */
 public class RummyHelper {
-    ArrayList<int[]> allVlaidComnbinations = new ArrayList<>();
+    ArrayList<int[]> allVaidComnbinations = new ArrayList<>();
 
-        public static boolean isSeqPresent (int[] cards) {
+        public static boolean isNaturalSeqPresent (int[] cards) {
             Arrays.sort(cards);
             for (int i = 0; i < cards.length -1; i++) {
+                if (cards[i+1] == 53) {
+                    return false;
+                }
                 if (cards[i+1] < cards[i]) {
                     return false;
                 }
@@ -73,12 +74,6 @@ public class RummyHelper {
         i[2] = 28;
         tripletsList.add(i);
         return tripletsList;
-    }
-
-
-
-    public boolean isNaturalSequence(int[] combination){
-        return true;
     }
 
     public int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3){
@@ -144,9 +139,9 @@ public class RummyHelper {
             for(int fiveGroupIdx2 = fiveGroupIdx1 + 1; fiveGroupIdx2 < groupsOfFive.size(); fiveGroupIdx2++){
                 for (int threeGroupIdx = 0; threeGroupIdx < groupsOfThree.size(); threeGroupIdx++){
                     int sequnces = 0;
-                    if (isNaturalSequence(groupsOfFive.get(fiveGroupIdx1))) sequnces += 1;
-                    if (isNaturalSequence(groupsOfFive.get(fiveGroupIdx2))) sequnces += 1;
-                    if (isNaturalSequence(groupsOfThree.get(threeGroupIdx))) sequnces += 1;
+                    if (isNaturalSeqPresent(groupsOfFive.get(fiveGroupIdx1))) sequnces += 1;
+                    if (isNaturalSeqPresent(groupsOfFive.get(fiveGroupIdx2))) sequnces += 1;
+                    if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx))) sequnces += 1;
                     if (sequnces >1){
                         int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx1), groupsOfFive.get(fiveGroupIdx2), groupsOfThree.get(threeGroupIdx));
                         if (isCardsCountValid(aThirteenGroup)){
@@ -162,9 +157,9 @@ public class RummyHelper {
             for(int fourGroupIdx = 0; fourGroupIdx < groupsOfFour.size(); fourGroupIdx++){
                 for (int threeGroupIdx = 0; threeGroupIdx < groupsOfThree.size(); threeGroupIdx++){
                     int sequnces = 0;
-                    if (isNaturalSequence(groupsOfFive.get(fiveGroupIdx))) sequnces += 1;
-                    if (isNaturalSequence(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
-                    if (isNaturalSequence(groupsOfThree.get(threeGroupIdx))) sequnces += 1;
+                    if (isNaturalSeqPresent(groupsOfFive.get(fiveGroupIdx))) sequnces += 1;
+                    if (isNaturalSeqPresent(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
+                    if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx))) sequnces += 1;
                     if (sequnces >1){
                         int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx), groupsOfFour.get(fourGroupIdx), groupsOfThree.get(threeGroupIdx));
                         if (isCardsCountValid(aThirteenGroup)){
