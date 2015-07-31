@@ -6,6 +6,8 @@ import java.util.*;
  */
 public class RummyHelper {
 
+    public static final int JOKER_CARD = 53;
+
     CardsCombination cardsCombination;
     RummyHelper() {
         cardsCombination = CardsCombination.getInstance();
@@ -72,7 +74,7 @@ public class RummyHelper {
         Arrays.sort(handCards);
         int i = 0;
         for (i=0; i < handCards.length; i++) {
-            if (handCards[i] == 53) {
+            if (handCards[i] == JOKER_CARD) {
                 break;
             }
         }
@@ -89,8 +91,10 @@ public class RummyHelper {
                     jokerCount = jokerCount > seqCardCount ? jokerCount - seqCardCount : 0;
                 }
             }
+            System.out.println("minrepCount is "+minRepCount);
             minRepCount = minRepCount - jokerCount;
         }
+
         return minRepCount;
     }
 
