@@ -1,4 +1,5 @@
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,46 @@ public class RummyHelper {
                 }
             }
             return true;
+        }
+
+        public static ArrayList<int[]> generateTriplets() {
+
+            ArrayList<int[]> tripletsList = new ArrayList<int[]>();
+
+            for (int i = 1; i <= 13; i++) {
+                int[] tripleSetCombos = new int[4];
+                tripleSetCombos[0] = 0 * 13 + i;
+                tripleSetCombos[1] = 1 * 13 + i;
+                tripleSetCombos[2] = 2 * 13 + i;
+                tripleSetCombos[3] = 3 * 13 + i;
+
+                int[] tripleset = new int[3];
+
+                tripleset[0] = tripleSetCombos[0];
+                tripleset[1] = tripleSetCombos[1];
+                tripleset[2] = tripleSetCombos[2];
+
+                tripletsList.add(tripleset);
+
+                tripleset[0] = tripleSetCombos[0];
+                tripleset[1] = tripleSetCombos[1];
+                tripleset[2] = tripleSetCombos[3];
+
+                tripletsList.add(tripleset);
+
+                tripleset[0] = tripleSetCombos[0];
+                tripleset[1] = tripleSetCombos[2];
+                tripleset[2] = tripleSetCombos[3];
+
+                tripletsList.add(tripleset);
+
+                tripleset[0] = tripleSetCombos[1];
+                tripleset[1] = tripleSetCombos[2];
+                tripleset[2] = tripleSetCombos[3];
+
+                tripletsList.add(tripleset);
+            }
+            return tripletsList;
         }
 
         public static ArrayList<int[]> generateSequencesOfLength3() {
@@ -60,21 +101,6 @@ public class RummyHelper {
             }
             return seqLen5List;
         }
-
-    public ArrayList<Integer[]> generateTriplets() {
-
-        ArrayList<Integer[]> tripletsList = new ArrayList<Integer[]>();
-
-        for (int i = 1; i <= 13; i++) {
-
-        }
-        Integer[] i = new Integer[3];
-        i[0] = 1;
-        i[1] = 14;
-        i[2] = 28;
-        tripletsList.add(i);
-        return tripletsList;
-    }
 
     public int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3){
         int[] aThirteenCombination = new int[13];
