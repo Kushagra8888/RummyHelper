@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,6 +21,127 @@ public class RummyHelper {
                 }
             }
             return true;
+        }
+
+        public static ArrayList<int[]> generateTriplets() {
+
+            ArrayList<int[]> tripletsList = new ArrayList<int[]>();
+
+            for (int i = 1; i <= 13; i++) {
+                int[] tripleSetCombos = new int[4];
+                tripleSetCombos[0] = 0 * 13 + i;
+                tripleSetCombos[1] = 1 * 13 + i;
+                tripleSetCombos[2] = 2 * 13 + i;
+                tripleSetCombos[3] = 3 * 13 + i;
+
+                int[] tripleset = new int[3];
+
+                tripleset[0] = tripleSetCombos[0];
+                tripleset[1] = tripleSetCombos[1];
+                tripleset[2] = tripleSetCombos[2];
+
+                tripletsList.add(tripleset);
+
+                tripleset[0] = tripleSetCombos[0];
+                tripleset[1] = tripleSetCombos[1];
+                tripleset[2] = tripleSetCombos[3];
+
+                tripletsList.add(tripleset);
+
+                tripleset[0] = tripleSetCombos[0];
+                tripleset[1] = tripleSetCombos[2];
+                tripleset[2] = tripleSetCombos[3];
+
+                tripletsList.add(tripleset);
+
+                tripleset[0] = tripleSetCombos[1];
+                tripleset[1] = tripleSetCombos[2];
+                tripleset[2] = tripleSetCombos[3];
+
+                tripletsList.add(tripleset);
+            }
+            return tripletsList;
+        }
+
+        public static ArrayList<int[]> generateQuards(){
+
+            ArrayList<int[]> quardsList = new ArrayList<int[]>();
+
+            for (int i = 1; i <= 13; i++) {
+
+                int[] quardsSet = new int[4];
+
+                quardsSet[0] = 0 * 13 + i;
+                quardsSet[1] = 1 * 13 + i;
+                quardsSet[2] = 2 * 13 + i;
+                quardsSet[3] = 3 * 13 + i;
+
+                quardsList.add(quardsSet);
+            }
+
+            return quardsList;
+        }
+
+        public static ArrayList<int[]> generateTenalis() {
+
+            ArrayList<int[]> tenalisList = new ArrayList<int[]>();
+
+            for (int i = 1; i <= 52; i++) {
+
+                int[] tenalisSet = new int[3];
+
+                tenalisSet[0] = tenalisSet[1] = tenalisSet[2] = i;
+
+                tenalisList.add(tenalisSet);
+            }
+            return tenalisList;
+        }
+
+        public boolean isCardsCountValid(int[] combination) {
+
+        HashMap<Integer, Integer> count = new HashMap<Integer, Integer>();
+        for (int i = 0; i < combination.length; i++) {
+            if (count.containsKey((combination[i])))
+            {
+                int value = count.get(combination[i]);
+                if (value == 3)
+                    return false;
+                count.put(combination[i], ++value);
+            }
+            else
+                count.put(combination[i], 1);
+        }
+        return true;
+        }
+
+        public int compareWithHand(int[] combination, int[] cardsInHand) {
+
+            int diff = 0;
+            int combinationIndex = 0;
+            int cardsInHandIndex = 0;
+
+            while (combinationIndex < combination.length && cardsInHandIndex < cardsInHand.length) {
+                if (cardsInHand[cardsInHandIndex] < combination[combinationIndex]) {
+                    cardsInHandIndex++;
+                }
+                else
+                if (cardsInHand[cardsInHandIndex] == combination[combinationIndex]) {
+                    cardsInHandIndex++;
+                    combinationIndex++;
+                }
+                else
+                if (combination[combinationIndex] < cardsInHand[cardsInHandIndex]) {
+                    cardsInHandIndex++;
+                    diff++;
+                }
+            }
+
+            while(combinationIndex < cardsInHandIndex)
+            {
+                combinationIndex++;
+                diff++;
+            }
+            return diff;
         }
 
         public static ArrayList<int[]> generateSequencesOfLength3() {
@@ -60,21 +182,6 @@ public class RummyHelper {
             }
             return seqLen5List;
         }
-
-        public ArrayList<Integer[]> generateTriplets() {
-
-            ArrayList<Integer[]> tripletsList = new ArrayList<Integer[]>();
-
-            for (int i = 1; i <= 13; i++) {
-
-        }
-        Integer[] i = new Integer[3];
-        i[0] = 1;
-        i[1] = 14;
-        i[2] = 28;
-        tripletsList.add(i);
-        return tripletsList;
-    }
 
     public int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3){
         int[] aThirteenCombination = new int[13];
@@ -145,6 +252,7 @@ public class RummyHelper {
                     if (sequnces >1){
                         int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx1), groupsOfFive.get(fiveGroupIdx2), groupsOfThree.get(threeGroupIdx));
                         if (isCardsCountValid(aThirteenGroup)){
+                            Arrays.sort(aThirteenGroup);
                             allValidCombinations.add(aThirteenGroup);
                         }
                     }
@@ -163,6 +271,7 @@ public class RummyHelper {
                     if (sequnces >1){
                         int[] aThirteenGroup = mergeCombinations(groupsOfFive.get(fiveGroupIdx), groupsOfFour.get(fourGroupIdx), groupsOfThree.get(threeGroupIdx));
                         if (isCardsCountValid(aThirteenGroup)){
+                            Arrays.sort(aThirteenGroup);
                             allValidCombinations.add(aThirteenGroup);
                         }
                     }
@@ -176,13 +285,14 @@ public class RummyHelper {
                 for (int threeGroupIdx3 = threeGroupIdx2 + 1; threeGroupIdx3 < groupsOfThree.size(); threeGroupIdx3++){
                     for(int fourGroupIdx = 0; fourGroupIdx < groupsOfFour.size(); fourGroupIdx++){
                         int sequnces = 0;
-                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx1))) sequnces += 1;
-                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx2))) sequnces += 1;
-                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx3))) sequnces += 1;
-                        if (isNaturalSequence(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx1))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx2))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx3))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
                         if (sequnces >1){
                             int[] aThirteenGroup = mergeCombinations(groupsOfThree.get(threeGroupIdx1), groupsOfThree.get(threeGroupIdx2), groupsOfThree.get(threeGroupIdx3), groupsOfFour.get(fourGroupIdx));
                             if (isCardsCountValid(aThirteenGroup)){
+                                Arrays.sort(aThirteenGroup);
                                 allValidCombinations.add(aThirteenGroup);
                             }
                         }
