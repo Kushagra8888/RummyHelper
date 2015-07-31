@@ -2,6 +2,7 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -95,6 +96,23 @@ public class RummyHelper {
                 tenalisList.add(tenalisSet);
             }
             return tenalisList;
+        }
+
+        public boolean isCardsCountValid(int[] combination) {
+
+        HashMap<Integer, Integer> count = new HashMap<Integer, Integer>();
+        for (int i = 0; i < combination.length; i++) {
+            if (count.containsKey((combination[i])))
+            {
+                int value = count.get(combination[i]);
+                if (value == 3)
+                    return false;
+                count.put(combination[i], ++value);
+            }
+            else
+                count.put(combination[i], 1);
+        }
+        return true;
         }
 
 
