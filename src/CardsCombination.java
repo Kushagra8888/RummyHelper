@@ -63,36 +63,23 @@ public class CardsCombination {
 
         for (int i = 1; i <= 13; i++) {
             int[] tripleSetCombos = new int[4];
-            tripleSetCombos[0] = 0 * 13 + i;
-            tripleSetCombos[1] = 1 * 13 + i;
-            tripleSetCombos[2] = 2 * 13 + i;
-            tripleSetCombos[3] = 3 * 13 + i;
-
+            for (int j =0; j < 4; j++) {
+                tripleSetCombos[j] = j * 13 + i;
+            }
             int[] tripleset = new int[3];
+            int eliminateAtIndex = 0;
+            while(eliminateAtIndex < 4) {
 
-            tripleset[0] = tripleSetCombos[0];
-            tripleset[1] = tripleSetCombos[1];
-            tripleset[2] = tripleSetCombos[2];
-
-            tripletsList.add(tripleset);
-
-            tripleset[0] = tripleSetCombos[0];
-            tripleset[1] = tripleSetCombos[1];
-            tripleset[2] = tripleSetCombos[3];
-
-            tripletsList.add(tripleset);
-
-            tripleset[0] = tripleSetCombos[0];
-            tripleset[1] = tripleSetCombos[2];
-            tripleset[2] = tripleSetCombos[3];
-
-            tripletsList.add(tripleset);
-
-            tripleset[0] = tripleSetCombos[1];
-            tripleset[1] = tripleSetCombos[2];
-            tripleset[2] = tripleSetCombos[3];
-
-            tripletsList.add(tripleset);
+                for (int index = 0, indexCombo = 0; indexCombo < 4; indexCombo++) {
+                    if (indexCombo != eliminateAtIndex) {
+                        tripleset[index] = tripleSetCombos[indexCombo];
+                        index++;
+                    }
+                }
+                System.out.println(Arrays.toString(tripleset));
+                tripletsList.add(tripleset);
+                eliminateAtIndex++;
+            }
         }
         return tripletsList;
     }
@@ -105,10 +92,9 @@ public class CardsCombination {
 
             int[] quardsSet = new int[4];
 
-            quardsSet[0] = 0 * 13 + i;
-            quardsSet[1] = 1 * 13 + i;
-            quardsSet[2] = 2 * 13 + i;
-            quardsSet[3] = 3 * 13 + i;
+            for (int j = 0; j < 4; j++){
+                quardsSet[j] = 13 * j + i;
+            }
 
             quardsList.add(quardsSet);
         }
