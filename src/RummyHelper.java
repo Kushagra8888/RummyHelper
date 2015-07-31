@@ -1,8 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by test on 7/30/2015.
@@ -102,7 +99,7 @@ public class RummyHelper {
             return tenalisList;
         }
 
-        public boolean isCardsCountValid(int[] combination) {
+        public static boolean isCardsCountValid(int[] combination) {
 
         HashMap<Integer, Integer> count = new HashMap<Integer, Integer>();
         for (int i = 0; i < combination.length; i++) {
@@ -188,7 +185,7 @@ public class RummyHelper {
             return seqLen5List;
         }
 
-    public int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3){
+    public static int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3){
         int[] aThirteenCombination = new int[13];
         int thirteenIdx = 0;
         for (int idx = 0; idx < combination1.length; idx++){
@@ -206,7 +203,7 @@ public class RummyHelper {
         return aThirteenCombination;
     }
 
-    public int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3, int[] combination4){
+    public static int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3, int[] combination4){
         int[] aThirteenCombination = new int[13];
         int thirteenIdx = 0;
         for (int idx = 0; idx < combination1.length; idx++){
@@ -229,7 +226,7 @@ public class RummyHelper {
     }
 
     public static ArrayList<int[]> generateValidCombinations(){
-        ArrayList<int[]> allValidCombinations = new ArrayList<>();
+        HashSet<int[]> allValidCombinations = new HashSet<>();
         ArrayList<int[]> triplets = generateTriplets();
         ArrayList<int[]> quards = generateQuards();
         ArrayList<int[]> tenalis = generateTenalis();
