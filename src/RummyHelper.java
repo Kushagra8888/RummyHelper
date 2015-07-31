@@ -63,6 +63,25 @@ public class RummyHelper {
             return tripletsList;
         }
 
+        public static ArrayList<int[]> generateQuards(){
+
+            ArrayList<int[]> quardsList = new ArrayList<int[]>();
+
+            for (int i = 1; i <= 13; i++) {
+
+                int[] quardsSet = new int[4];
+
+                quardsSet[0] = 0 * 13 + i;
+                quardsSet[1] = 1 * 13 + i;
+                quardsSet[2] = 2 * 13 + i;
+                quardsSet[3] = 3 * 13 + i;
+
+                quardsList.add(quardsSet);
+            }
+
+            return quardsList;
+        }
+
         public static ArrayList<int[]> generateSequencesOfLength3() {
             ArrayList<int[]> seqLen3List = new ArrayList<int[]>();
             for (int i = 2; i <= 41; i+=13) {
