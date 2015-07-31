@@ -1,10 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by test on 7/30/2015.
  */
 public class RummyHelper {
+
+        public static boolean isSeqPresent (int[] cards) {
+            Arrays.sort(cards);
+            for (int i = 0; i < cards.length -1; i++) {
+                if (cards[i+1] < cards[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public static ArrayList<int[]> generateSequencesOfLength3() {
             ArrayList<int[]> seqLen3List = new ArrayList<int[]>();
