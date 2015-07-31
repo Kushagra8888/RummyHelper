@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class RummyHelper {
 
-    public ArrayList<int[]> allVaidCombinations = new ArrayList<>();
+    public HashSet<int[]> allVaidCombinations = new HashSet<>();
     RummyHelper() {
         allVaidCombinations  = generateValidCombinations();
     }
@@ -225,7 +225,7 @@ public class RummyHelper {
         return aThirteenCombination;
     }
 
-    public static ArrayList<int[]> generateValidCombinations(){
+    public static HashSet<int[]> generateValidCombinations(){
         HashSet<int[]> allValidCombinations = new HashSet<>();
         ArrayList<int[]> triplets = generateTriplets();
         ArrayList<int[]> quards = generateQuards();
@@ -326,7 +326,6 @@ public class RummyHelper {
     public int getMinimumReplacementsForWin(int[] handCards) {
         int minRepCount = 0, jokerCount =0;
         Arrays.sort(handCards);
-        Arrays.copyOf(handCards, i);
         int i = 0;
         for (i=0; i < handCards.length; i++) {
             if (handCards[i] == 53) {
