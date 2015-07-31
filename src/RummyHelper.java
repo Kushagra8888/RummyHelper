@@ -133,16 +133,18 @@ public class RummyHelper {
                 }
                 else
                 if (combination[combinationIndex] < cardsInHand[cardsInHandIndex]) {
-                    cardsInHandIndex++;
+                    combinationIndex++;
                     diff++;
                 }
             }
 
-            while(combinationIndex < cardsInHandIndex)
+            while(combinationIndex < combination.length)
             {
                 combinationIndex++;
                 diff++;
             }
+
+            //System.out.println("Diff is " + diff);
             return diff;
         }
 
@@ -265,7 +267,7 @@ public class RummyHelper {
         //Combinations of type {5,4,3}
         for (int fiveGroupIdx = 0; fiveGroupIdx < groupsOfFive.size(); fiveGroupIdx++) {
             for(int fourGroupIdx1 = 0; fourGroupIdx1 < groupsOfFour.size(); fourGroupIdx1++){
-                for (int fourGroupIdx2 = fourGroupIdx1; fourGroupIdx2 < groupsOfThree.size(); fourGroupIdx2++){
+                for (int fourGroupIdx2 = fourGroupIdx1; fourGroupIdx2 < groupsOfFour.size(); fourGroupIdx2++){
                     int sequnces = 0;
                     if (isNaturalSeqPresent(groupsOfFive.get(fiveGroupIdx))) sequnces += 1;
                     if (isNaturalSeqPresent(groupsOfFour.get(fourGroupIdx1))) sequnces += 1;
@@ -302,6 +304,8 @@ public class RummyHelper {
                 }
             }
         }
+        System.out.println("combinations length " + allValidCombinations.size());
+
         return allValidCombinations;
     }
 
@@ -324,7 +328,10 @@ public class RummyHelper {
     }
 
     public int getMinimumReplacementsForWin(int[] handCards) {
-        int minRepCount = 0, jokerCount =0;
+        int minRepCount = 14, jokerCount =0;
+        System.out.println("Cards at HAnd\n");
+        for (int i = 0; i < handCards.length; i++)
+            System.out.println(handCards[i]);
         Arrays.sort(handCards);
         int i = 0;
         for (i=0; i < handCards.length; i++) {
@@ -351,6 +358,7 @@ public class RummyHelper {
             }
             finalMinRepCount = minRepCount - jokerCount;
         }
+        System.out.println("FinalMinRepCount" + finalMinRepCount);
         return finalMinRepCount;
     }
 
