@@ -61,11 +61,11 @@ public class RummyHelper {
             return seqLen5List;
         }
 
-    public ArrayList<Integer[]> generateTriplets() {
+        public ArrayList<Integer[]> generateTriplets() {
 
-        ArrayList<Integer[]> tripletsList = new ArrayList<Integer[]>();
+            ArrayList<Integer[]> tripletsList = new ArrayList<Integer[]>();
 
-        for (int i = 1; i <= 13; i++) {
+            for (int i = 1; i <= 13; i++) {
 
         }
         Integer[] i = new Integer[3];
@@ -191,6 +191,38 @@ public class RummyHelper {
             }
         }
         return allValidCombinations;
+    }
+
+    public int getMinimumReplacementsForWin(int[] handCards) {
+        int minRepCount = 0, jokerCount =0;
+        Arrays.sort(handCards);
+        Arrays.copyOf(handCards, i);
+        int i = 0;
+        for (i=0; i < handCards.length; i++) {
+            if (handCards[i] == 53) {
+                break;
+            }
+        }
+        int[] hCards = Arrays.copyOf(handCards, i);
+        Arrays.sort(hCards);
+        jokerCount = handCards.length - i;
+
+        for (int[] validCardsComb : allVaidComnbinations) {
+            int newMinRepCount = compareWithHand(validCardsComb, hCards);
+            minRepCount = newMinRepCount < minRepCount ? newMinRepCount : minRepCount;
+
+        }
+        int finalMinRepCount = minRepCount;
+        if (jokerCount != 0) {
+            if ( ! isNaturalSeqPresent(hCards)) {
+                int seqCardCount = getCardCountToMakeNaturalSeq();
+                if (minRepCount > seqCardCount) {
+                    jokerCount = jokerCount > seqCardCount ? jokerCount - seqCardCount : 0;
+                }
+            }
+            finalMinRepCount = minRepCount - jokerCount;
+        }
+        return finalMinRepCount;
     }
 
 }
