@@ -5,7 +5,13 @@ import java.util.HashMap;
 /**
  * Created by test on 7/31/2015.
  */
+
 public class CardsCombination {
+    public static final int CARDS_IN_ONE_DECK = 52;
+    public static final int CARDS_OF_ONE_FACE = 13;
+    public static final int NUMBER_OF_FACES = 4;
+    public static final int CARDS_IN_HAND = 13;
+
     private ArrayList<int[]> allVaidCombinations = new ArrayList<>();
     private static CardsCombination instance = null;
 
@@ -61,16 +67,16 @@ public class CardsCombination {
 
         ArrayList<int[]> tripletsList = new ArrayList<int[]>();
 
-        for (int i = 1; i <= 13; i++) {
-            int[] tripleSetCombos = new int[4];
-            for (int j =0; j < 4; j++) {
-                tripleSetCombos[j] = j * 13 + i;
+        for (int i = 1; i <= CARDS_OF_ONE_FACE; i++) {
+            int[] tripleSetCombos = new int[NUMBER_OF_FACES];
+            for (int j =0; j < NUMBER_OF_FACES; j++) {
+                tripleSetCombos[j] = j * CARDS_OF_ONE_FACE + i;
             }
             int[] tripleset = new int[3];
             int eliminateAtIndex = 0;
-            while(eliminateAtIndex < 4) {
+            while(eliminateAtIndex < NUMBER_OF_FACES) {
 
-                for (int index = 0, indexCombo = 0; indexCombo < 4; indexCombo++) {
+                for (int index = 0, indexCombo = 0; indexCombo < NUMBER_OF_FACES; indexCombo++) {
                     if (indexCombo != eliminateAtIndex) {
                         tripleset[index] = tripleSetCombos[indexCombo];
                         index++;
@@ -88,12 +94,12 @@ public class CardsCombination {
 
         ArrayList<int[]> quardsList = new ArrayList<int[]>();
 
-        for (int i = 1; i <= 13; i++) {
+        for (int i = 1; i <= CARDS_OF_ONE_FACE; i++) {
 
-            int[] quardsSet = new int[4];
+            int[] quardsSet = new int[NUMBER_OF_FACES];
 
-            for (int j = 0; j < 4; j++){
-                quardsSet[j] = 13 * j + i;
+            for (int j = 0; j < NUMBER_OF_FACES; j++){
+                quardsSet[j] = CARDS_OF_ONE_FACE * j + i;
             }
 
             quardsList.add(quardsSet);
@@ -106,7 +112,7 @@ public class CardsCombination {
 
         ArrayList<int[]> tenalisList = new ArrayList<int[]>();
 
-        for (int i = 1; i <= 52; i++) {
+        for (int i = 1; i <= CARDS_IN_ONE_DECK; i++) {
 
             int[] tenalisSet = new int[3];
 
@@ -166,12 +172,12 @@ public class CardsCombination {
 
     private ArrayList<int[]> generateSequencesOfLength3() {
         ArrayList<int[]> seqLen3List = new ArrayList<int[]>();
-        for (int i = 1; i <= 41; i+=13) {
+        for (int i = 1; i <= 41; i+=CARDS_OF_ONE_FACE) {
             for (int j=i; j <= i + 9; j++) {
                 seqLen3List.add(new int[] {j, j+1, j+2});
             }
         }
-        for (int i=1; i <= 43; i+=13) {
+        for (int i=1; i <= 43; i+=CARDS_OF_ONE_FACE) {
             seqLen3List.add(new int[] {i, i+12, i+11});
         }
         return seqLen3List;
@@ -179,12 +185,12 @@ public class CardsCombination {
 
     private ArrayList<int[]> generateSequencesOfLength4() {
         ArrayList<int[]> seqLen4List = new ArrayList<int[]>();
-        for (int i = 1; i <= 41; i+=13) {
+        for (int i = 1; i <= 41; i+=CARDS_OF_ONE_FACE) {
             for (int j=i; j <= i + 8; j++) {
                 seqLen4List.add(new int[] {j, j+1, j+2, j+3});
             }
         }
-        for (int i=1; i <= 43; i+=13) {
+        for (int i=1; i <= 43; i+=CARDS_OF_ONE_FACE) {
             seqLen4List.add(new int[] {i, i+12, i+11, i+10});
         }
         return seqLen4List;
@@ -192,19 +198,19 @@ public class CardsCombination {
 
     private ArrayList<int[]> generateSequencesOfLength5() {
         ArrayList<int[]> seqLen5List = new ArrayList<int[]>();
-        for (int i = 1; i <= 41; i+=13) {
+        for (int i = 1; i <= 41; i+=CARDS_OF_ONE_FACE) {
             for (int j=i; j <= i + 7; j++) {
                 seqLen5List.add(new int[] {j, j+1, j+2, j+3, j+4});
             }
         }
-        for (int i=1; i <= 43; i+=13) {
+        for (int i=1; i <= 43; i+=CARDS_OF_ONE_FACE) {
             seqLen5List.add(new int[] {i, i+12, i+11, i+10, i+9});
         }
         return seqLen5List;
     }
 
     private int[] mergeCombinations(int[] combination1, int[] combination2, int[] combination3){
-        int[] aThirteenCombination = new int[13];
+        int[] aThirteenCombination = new int[CARDS_OF_ONE_FACE];
         int thirteenIdx = 0;
         for (int idx = 0; idx < combination1.length; idx++){
             aThirteenCombination[thirteenIdx] = combination1[idx];
@@ -324,7 +330,7 @@ public class CardsCombination {
     }
 
     public int getDiffFromValidCombination(int[] handCards) {
-        int minRepCount = 14, jokerCount =0;
+        int minRepCount = CARDS_IN_HAND + 1, jokerCount =0;
 
         for (int[] validCardsComb : allVaidCombinations) {
             int newMinRepCount =  compareWithHand(validCardsComb, handCards);
