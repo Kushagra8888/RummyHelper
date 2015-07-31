@@ -286,10 +286,10 @@ public class RummyHelper {
                 for (int threeGroupIdx3 = threeGroupIdx2 + 1; threeGroupIdx3 < groupsOfThree.size(); threeGroupIdx3++){
                     for(int fourGroupIdx = 0; fourGroupIdx < groupsOfFour.size(); fourGroupIdx++){
                         int sequnces = 0;
-                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx1))) sequnces += 1;
-                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx2))) sequnces += 1;
-                        if (isNaturalSequence(groupsOfThree.get(threeGroupIdx3))) sequnces += 1;
-                        if (isNaturalSequence(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx1))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx2))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfThree.get(threeGroupIdx3))) sequnces += 1;
+                        if (isNaturalSeqPresent(groupsOfFour.get(fourGroupIdx))) sequnces += 1;
                         if (sequnces >1){
                             int[] aThirteenGroup = mergeCombinations(groupsOfThree.get(threeGroupIdx1), groupsOfThree.get(threeGroupIdx2), groupsOfThree.get(threeGroupIdx3), groupsOfFour.get(fourGroupIdx));
                             if (isCardsCountValid(aThirteenGroup)){
