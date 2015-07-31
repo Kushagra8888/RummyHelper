@@ -21,15 +21,40 @@ public class CardsCombination {
     }
     private boolean isNaturalSeqPresent (int[] cards) {
         Arrays.sort(cards);
-        for (int i = 0; i < cards.length -1; i++) {
-            if (cards[i+1] == 53) {
-                return false;
-            }
-            if (cards[i+1] < cards[i]) {
-                return false;
+        if (isTenaliPresent(cards)) {
+            return true;
+        }
+        if ( Arrays.asList(cards).contains(1) && Arrays.asList(cards).contains(52) && Arrays.asList(cards).contains(51)) {
+            return true;
+        }
+        int requiredCardCount = 2;
+
+        for (int i = 0; i < cards.length - 1; i++) {
+            if (cards[i + 1] == cards[i] + 1) {
+                requiredCardCount--;
+                if (requiredCardCount == 0)
+                    return true;
+            } else {
+                requiredCardCount = 2;
             }
         }
         return true;
+    }
+
+    public static boolean isTenaliPresent(int[] hand){
+        int consecutives = 1;
+        for (int idx = 1; idx < hand.length; idx++){
+            if (hand[idx] == hand[idx - 1]){
+                consecutives += 1;
+            }
+            else{
+                consecutives = 1;
+            }
+            if (consecutives > 2){
+                return true;
+            }
+        }
+        return false;
     }
 
     private ArrayList<int[]> generateTriplets() {
@@ -155,7 +180,7 @@ public class CardsCombination {
 
     private ArrayList<int[]> generateSequencesOfLength3() {
         ArrayList<int[]> seqLen3List = new ArrayList<int[]>();
-        for (int i = 2; i <= 41; i+=13) {
+        for (int i = 1; i <= 41; i+=13) {
             for (int j=i; j <= i + 9; j++) {
                 seqLen3List.add(new int[] {j, j+1, j+2});
             }
@@ -168,7 +193,7 @@ public class CardsCombination {
 
     private ArrayList<int[]> generateSequencesOfLength4() {
         ArrayList<int[]> seqLen4List = new ArrayList<int[]>();
-        for (int i = 2; i <= 41; i+=13) {
+        for (int i = 1; i <= 41; i+=13) {
             for (int j=i; j <= i + 8; j++) {
                 seqLen4List.add(new int[] {j, j+1, j+2, j+3});
             }
@@ -181,7 +206,7 @@ public class CardsCombination {
 
     private ArrayList<int[]> generateSequencesOfLength5() {
         ArrayList<int[]> seqLen5List = new ArrayList<int[]>();
-        for (int i = 2; i <= 41; i+=13) {
+        for (int i = 1; i <= 41; i+=13) {
             for (int j=i; j <= i + 7; j++) {
                 seqLen5List.add(new int[] {j, j+1, j+2, j+3, j+4});
             }

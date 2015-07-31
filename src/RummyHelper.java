@@ -6,56 +6,63 @@ import java.util.*;
  */
 public class RummyHelper {
 
-    public HashSet<int[]> allVaidCombinations = new HashSet<>();
+    CardsCombination cardsCombination;
     RummyHelper() {
         cardsCombination = CardsCombination.getInstance();
     }
 
     private boolean isNaturalSeqPresent (int[] cards) {
             Arrays.sort(cards);
-            for (int i = 0; i < cards.length -1; i++) {
-                if (cards[i+1] == 53) {
-                    return false;
-                }
-                if (cards[i+1] < cards[i]) {
-                    return false;
+            if (isTenaliPresent(cards)) {
+                return true;
+            }
+            if ( Arrays.asList(cards).contains(1) && Arrays.asList(cards).contains(52) && Arrays.asList(cards).contains(51)) {
+                return true;
+            }
+            int requiredCardCount = 2;
+
+            for (int i = 0; i < cards.length - 1; i++) {
+                if (cards[i + 1] == cards[i] + 1) {
+                    requiredCardCount--;
+                    if (requiredCardCount == 0)
+                        return true;
+                } else {
+                    requiredCardCount = 2;
                 }
             }
             return true;
         }
 
-        public static boolean isTenaliPresent(int[] hand){
-            int consecutives = 1;
-            for (int idx = 1; idx < CARDS_IN_HAND; idx++){
-                if (hand[idx] == hand[idx - 1]){
-                    consecutives += 1;
-                }
-                else{
-                    consecutives = 1;
-                }
-                if (consecutives > 2){
-                    return true;
-                }
+    private boolean isTenaliPresent(int[] hand){
+        int consecutives = 1;
+        for (int idx = 1; idx < hand.length; idx++){
+            if (hand[idx] == hand[idx - 1]){
+                consecutives += 1;
             }
-            return false;
+            else{
+                consecutives = 1;
+            }
+            if (consecutives > 2){
+                return true;
+            }
         }
-
-        public static ArrayList<int[]> generateTriplets() {
+        return false;
+    }
 
     private int getCardCountToMakeNaturalSeq (int[] cards) {
         int requiredCardCount = 2;
         int minReqCount = requiredCardCount;
-        for (int i=0; i < cards.length; i++) {
-            if (cards[i+1] > cards[i]) {
-                requiredCardCount --;
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i + 1] > cards[i]) {
+                requiredCardCount--;
                 if (requiredCardCount == 0)
                     return requiredCardCount;
             } else {
                 if (requiredCardCount < 2) {
-                    requiredCardCount ++;
+                    requiredCardCount++;
                 }
             }
-            minReqCount = requiredCardCount < minReqCount ? requiredCardCount: minReqCount;
+            minReqCount = requiredCardCount < minReqCount ? requiredCardCount : minReqCount;
         }
         return minReqCount;
     }
