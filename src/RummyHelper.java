@@ -8,7 +8,12 @@ import java.util.List;
  * Created by test on 7/30/2015.
  */
 public class RummyHelper {
-    ArrayList<int[]> allVaidComnbinations = new ArrayList<>();
+
+    public ArrayList<int[]> allVaidCombinations = new ArrayList<>();
+    RummyHelper() {
+        allVaidCombinations  = generateValidCombinations();
+    }
+
 
         public static boolean isNaturalSeqPresent (int[] cards) {
             Arrays.sort(cards);
@@ -223,7 +228,7 @@ public class RummyHelper {
         return aThirteenCombination;
     }
 
-    public ArrayList<int[]> generateValidCombinations(){
+    public static ArrayList<int[]> generateValidCombinations(){
         ArrayList<int[]> allValidCombinations = new ArrayList<>();
         ArrayList<int[]> triplets = generateTriplets();
         ArrayList<int[]> quards = generateQuards();
@@ -317,7 +322,7 @@ public class RummyHelper {
         Arrays.sort(hCards);
         jokerCount = handCards.length - i;
 
-        for (int[] validCardsComb : allVaidComnbinations) {
+        for (int[] validCardsComb : allVaidCombinations) {
             int newMinRepCount = compareWithHand(validCardsComb, hCards);
             minRepCount = newMinRepCount < minRepCount ? newMinRepCount : minRepCount;
 
